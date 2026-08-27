@@ -1,0 +1,16 @@
+schema: spec-driven
+context: |
+  Project: BTC_Strategy_Multica
+  OpenSpec records proposed workflow-contract changes before Multica runtime configuration is changed.
+  Specifications use normative RFC 2119 language and executable Given/When/Then scenarios.
+
+rules:
+  proposal:
+    - State authorization boundaries and non-goals.
+  specs:
+    - Preserve exact approved constants and machine-readable envelopes.
+    - Include executable Given/When/Then scenarios.
+  design:
+    - Include migration, invalidation, rollback, and error classification.
+  tasks:
+    - Treat all tasks as non-executed until separate implementation approval.
