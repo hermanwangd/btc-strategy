@@ -14,6 +14,9 @@ Review date: 2026-08-27. Scope: static review of the formal specification; no ru
 | 8 | `RESEARCH_ONLY` | PASS | Allows caveated research and forbids final qualification and CAGR/MDD claims. |
 | 9 | `CANONICAL_ELIGIBLE` | PASS | Requires strict point-in-time/revision evidence before final qualification eligibility. |
 | 10 | Forbidden side effects | PASS | `invariant boundaries` prohibits source copy/mutation, duplicate HERM-118, HERM-129/HERM-130 rewrite, unrelated pause, and downstream authorization. |
+| 11 | Identical tuple after `KEEP_CURRENT_SNAPSHOT` | PASS | Durable event identity survives resolution; the same tuple reuses its event/decision and uses `WAITING_FOR_V1_RESTORE` without another event when V1 is unavailable. |
+| 12 | Stale `ADOPT_NEW_SNAPSHOT` decision | PASS | Immediate hash recomputation prevents the old decision from authorizing a changed tuple and requires one event for the current identity. |
+| 13 | Spoofed `DECISION_AUTHORITY` | PASS | The authority string is insufficient; the comment author must resolve to Herman Wang's authorized workspace member and user IDs or the result is `DECISION_RECORD_ERROR`. |
 
 ## Contradiction review
 

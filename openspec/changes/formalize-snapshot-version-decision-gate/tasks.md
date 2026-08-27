@@ -20,6 +20,9 @@
 - [ ] 3.5 Verify local-unavailable and `HTTP 403` classifications route internal repair.
 - [ ] 3.6 Verify `RESEARCH_ONLY` claim prohibition and `CANONICAL_ELIGIBLE` strict evidence requirement.
 - [ ] 3.7 Verify no source mutation/copy, duplicate HERM-118, HERM-129/HERM-130 rewrite, unrelated pause, holdout unseal, promotion, deployment, capital, paper/live, or trading action.
+- [ ] 3.8 Verify an identical tuple after `KEEP_CURRENT_SNAPSHOT` reuses durable evidence and waits in `WAITING_FOR_V1_RESTORE` without a duplicate event when V1 is unavailable.
+- [ ] 3.9 Verify a stale `ADOPT_NEW_SNAPSHOT` decision cannot authorize a newly changed tuple.
+- [ ] 3.10 Verify an agent or non-Herman member cannot authorize a transition by spoofing `DECISION_AUTHORITY=Herman Wang`.
 
 ## 4. Rollback rehearsal (not executed under HERM-131)
 

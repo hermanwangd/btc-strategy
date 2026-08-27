@@ -101,7 +101,7 @@ SNAPSHOT_VERSION_APPROVAL_V1:<sha256(UTF-8(
 ))>
 ```
 
-All four inputs MUST use their exact envelope strings without whitespace normalization; hashes MUST be lowercase hexadecimal. Re-observing the same tuple MUST reuse the existing unresolved event and MUST NOT publish another. A different observed tuple MAY create one distinct event.
+All four inputs MUST use their exact envelope strings without whitespace normalization; hashes MUST be lowercase hexadecimal. The approval identity MUST remain durable across unresolved and resolved states. Re-observing the same tuple MUST reuse the existing event and MUST NOT publish another, including after a matching `KEEP_CURRENT_SNAPSHOT` decision. A different observed tuple MAY create one distinct event.
 
 #### Scenario: repeated identical drift
 
@@ -114,6 +114,12 @@ All four inputs MUST use their exact envelope strings without whitespace normali
 - **Given** an event exists for one observed tuple
 - **When** either observed hash differs from that tuple
 - **Then** one distinct approval event is permitted under its distinct deterministic identity.
+
+#### Scenario: repeated identical drift after keep-current decision
+
+- **Given** an event for the same four-field tuple has a matching `KEEP_CURRENT_SNAPSHOT` decision
+- **When** the identical tuple is observed again
+- **Then** the durable event and decision are reused, no new approval event is published, and the branch enters or remains `WAITING_FOR_V1_RESTORE` when V1 bytes are unavailable.
 
 ### Requirement: durable human decision
 
@@ -131,14 +137,14 @@ APPROVAL_EVENT_ID=<SNAPSHOT_VERSION_APPROVAL_V1 identity>
 END_SNAPSHOT_VERSION_DECISION_V1
 ```
 
-The Orchestrator MUST verify that the response hashes and event identity match the unresolved event and that authority is Herman Wang. Malformed, mismatched, duplicated, or unauthorized responses MUST be classified `DECISION_RECORD_ERROR`, MUST NOT continue the affected branch, and SHOULD receive one correction request on the same HERM-118 thread.
+The Orchestrator MUST verify that the response hashes and event identity match the applicable event, that `DECISION_AUTHORITY=Herman Wang`, and that the decision comment author resolves to workspace member ID `22a02dd4-c3de-44ce-b702-2311cba7aefa` and user ID `87261ec4-8bcd-4355-8e50-57514c7e1345`. The authority string is necessary but not sufficient. An agent-authored or other-member comment carrying that string MUST be classified `DECISION_RECORD_ERROR`. Malformed, mismatched, duplicated, or unauthorized responses MUST also be classified `DECISION_RECORD_ERROR`, MUST NOT continue the affected branch, and SHOULD receive one correction request on the same HERM-118 thread.
 
 This Gate is a material data-contract decision and is an authorized stop-for-Herman trigger.
 
 #### Scenario: authorized matching decision
 
 - **Given** one unresolved approval event and a decision envelope whose identity and observed hashes match it
-- **When** `DECISION_AUTHORITY=Herman Wang` records the response on HERM-118
+- **When** Herman Wang posts `DECISION_AUTHORITY=Herman Wang` on HERM-118 and the comment author resolves to both authorized IDs
 - **Then** the Orchestrator may execute exactly the selected continuation transition.
 
 #### Scenario: invalid decision record
@@ -147,9 +153,15 @@ This Gate is a material data-contract decision and is an authorized stop-for-Her
 - **When** the Orchestrator validates it
 - **Then** the affected branch remains stopped with `DECISION_RECORD_ERROR` and at most one correction request is made on the same thread.
 
+#### Scenario: spoofed decision authority
+
+- **Given** an agent or non-Herman member posts a matching envelope with `DECISION_AUTHORITY=Herman Wang`
+- **When** the Orchestrator resolves the real comment author
+- **Then** the affected branch remains stopped with `DECISION_RECORD_ERROR` and the envelope authorizes no transition.
+
 ### Requirement: adopt-new-snapshot transition
 
-For `ADOPT_NEW_SNAPSHOT`, the workflow MUST register a new immutable monotonically versioned reference (V2 after V1), MUST retain V1 evidence permanently, and MUST bind the decision identity to the new registration. It MUST rerun the independent Source Gate for the new immutable version before publication or downstream use.
+For `ADOPT_NEW_SNAPSHOT`, immediately before adoption the workflow MUST recompute the observed manifest and sums hashes. A decision MUST authorize only its exact observed tuple. If the path exposes a different tuple, the old event and decision MUST be marked superseded for execution purposes, MUST NOT authorize the newly observed bytes, and the workflow MUST create or reuse exactly one event for the new deterministic identity. Only after the fresh tuple matches the authorized decision MUST the workflow register a new immutable monotonically versioned reference (V2 after V1), retain V1 evidence permanently, bind the decision identity to the new registration, and rerun the independent Source Gate before publication or downstream use.
 
 The workflow MUST invalidate or rebuild only artifacts whose recorded lineage proves dependency on changed bytes or changed semantics. Content-addressed artifacts with unchanged complete transitive inputs and semantics MUST remain valid. An artifact with missing or ambiguous lineage MUST be conservatively marked `INVALIDATION_REVIEW_REQUIRED` and MUST NOT enter final qualification until resolved.
 
@@ -159,9 +171,15 @@ The workflow MUST invalidate or rebuild only artifacts whose recorded lineage pr
 - **When** the Orchestrator reconciles it
 - **Then** it registers V2, retains V1 evidence, reruns Source Gate admission for V2, and rebuilds or invalidates only affected downstream artifacts.
 
+#### Scenario: stale adopt decision
+
+- **Given** an authorized `ADOPT_NEW_SNAPSHOT` decision exists for one observed tuple
+- **When** the immediately recomputed manifest or sums hash exposes a different tuple
+- **Then** the old event is superseded for execution, no newly observed bytes are adopted, and the workflow creates or reuses the single event for the new deterministic identity.
+
 ### Requirement: keep-current-snapshot transition
 
-For `KEEP_CURRENT_SNAPSHOT`, V1 MUST remain authoritative and observed bytes MUST remain inadmissible. If the exact V1 bytes remain readable, affected work MAY resume using V1 after hash validation. If V1 bytes are not readable at the registered reference, only dependent work MUST wait for restoration or a later explicit version decision; unrelated work MUST continue.
+For `KEEP_CURRENT_SNAPSHOT`, V1 MUST remain authoritative and observed bytes MUST remain inadmissible. If the exact V1 bytes remain readable, affected work MAY resume using V1 after hash validation. If V1 bytes are not readable at the registered reference, only dependent work MUST enter `WAITING_FOR_V1_RESTORE` until V1 validates or a genuinely different observed tuple creates one distinct event; unrelated work MUST continue. Re-observing the kept tuple MUST NOT create another approval event.
 
 #### Scenario: keep current while V1 is readable
 
