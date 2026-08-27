@@ -32,11 +32,15 @@ Only after the committed-baseline search plus authorized data/attachment/target 
 
 Generic dirty or untracked working-tree bytes MUST remain inadmissible. The sole exception is the exact immutable registration `USER_NOMINATED_SNAPSHOT_REFERENCE_V1`:
 
-`REFERENCE_PATH=/Users/herman_mbp2023/Documents/btc_trading_strategy/outputs/btc_backtest_market_data_2016_2026_complete_v2`  
-`MANIFEST_SHA256=42ddcc7f0ebf1f842e27d7ac65be5ab980ed13f16710cfbd1212f0300e8cce0a`  
-`SHA256SUMS_SHA256=5601c62af3faa26d5f3127fa2213dddd0bf1b6eeb715f72ec40d26888d1e7ebc`  
-`BUNDLE_GENERATED_AT=2026-08-20T15:46:47.319260+00:00`  
-`DATA_FREEZE_AT=2026-08-26T14:56:00Z`  
+`REFERENCE_PATH=/Users/herman_mbp2023/Documents/btc_trading_strategy/outputs/btc_backtest_market_data_2016_2026_complete_v2`
+
+`MANIFEST_SHA256=42ddcc7f0ebf1f842e27d7ac65be5ab980ed13f16710cfbd1212f0300e8cce0a`
+
+`SHA256SUMS_SHA256=5601c62af3faa26d5f3127fa2213dddd0bf1b6eeb715f72ec40d26888d1e7ebc`
+
+`BUNDLE_GENERATED_AT=2026-08-20T15:46:47.319260+00:00`
+
+`DATA_FREEZE_AT=2026-08-26T14:56:00Z`
 `CUTOFF_2026=2026-05-22`
 
 The workflow MUST use this directory by direct read-only reference and MUST NOT copy, rename, modify, delete, chmod, or bind it as an in-place project resource. Every consumer MUST run `shasum -a 256 -c SHA256SUMS.txt` and verify both registered hashes before reading data. Gold, DXY, and DGS3MO MUST be read in place with `2017-01-01..2026-05-22` filtering at read time. Derived factor-ready artifacts MAY be written only in the project worktree and MUST record the absolute path, source hashes, row filters, availability lag, transformations, and output hashes. Publication MUST be metadata-only as `RESEARCH_REFERENCE_MANIFEST` or, after strict Source Gate evidence, `CANONICAL_REFERENCE_MANIFEST`. MVRV MUST reuse the latest readable HERM-130/HERM-124 evidence unless separately superseded.
