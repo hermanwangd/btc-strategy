@@ -26,7 +26,7 @@ def normalize_path(path: Path, root: Path) -> str:
 
 def is_excluded(rel_path: str, checksum_filename: str = CHECKSUM_FILENAME) -> bool:
     """Return True for paths that must never appear in a reproducible manifest."""
-    if rel_path == checksum_filename or rel_path.startswith(".git/"):
+    if rel_path == checksum_filename or rel_path == ".git" or rel_path.startswith(".git/"):
         return True
     if "__pycache__/" in rel_path or rel_path.endswith(".pyc") or rel_path.endswith(".pyo"):
         return True
