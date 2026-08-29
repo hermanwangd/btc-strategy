@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://btc-strategy/schemas/phase2/v2/scenario-manifest.schema.json",
+  "title": "Phase2 Scenario Manifest",
+  "description": "Manifest of executable acceptance scenarios for the Phase-2 harness.",
+  "type": "object",
+  "required": ["manifest_id", "scenarios"],
+  "properties": {
+    "manifest_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "phase",
+          "input_fixture",
+          "expected_result",
+          "required_evidence_fields"
+        ],
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Stable scenario identity."
+          },
+          "phase": {
+            "type": "string",
+            "enum": ["task_2_harness", "task_3_platform_integration"]
+          },
+          "input_fixture": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_result": {
+            "type": "string",
+            "enum": ["PASS", "FAIL", "SKIP"]
+          },
+          "required_evidence_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

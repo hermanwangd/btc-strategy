@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://btc-strategy/schemas/phase2/v2/transition.schema.json",
+  "title": "Phase2 Workflow Transition",
+  "description": "A durable record of a workflow transition performed by the Orchestrator.",
+  "type": "object",
+  "required": [
+    "transition_key",
+    "parent_issue_id",
+    "predecessor_child_issue_id",
+    "result_identity",
+    "result_disposition",
+    "artifact_sha256",
+    "successor_action"
+  ],
+  "properties": {
+    "transition_key": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable key used to deduplicate the transition."
+    },
+    "parent_issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "predecessor_child_issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result_identity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result_disposition": {
+      "type": "string",
+      "enum": ["PASS", "REJECTED", "BLOCKED", "FAILED"]
+    },
+    "artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "successor_action": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Description of the legal successor action or NONE."
+    }
+  },
+  "additionalProperties": false
+}

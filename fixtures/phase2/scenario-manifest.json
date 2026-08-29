@@ -1,0 +1,82 @@
+{
+  "manifest_id": "phase2-scenario-manifest-v2",
+  "scenarios": [
+    {
+      "scenario_id": "HERM-203-FINAL-BYTE-GATE",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/valid/scenario-descriptor-final-byte.json",
+      "expected_result": "PASS",
+      "required_evidence_fields": ["outer_package_hash", "file_count", "status"]
+    },
+    {
+      "scenario_id": "HERM-203-TYPED-SCHEMA-GATE",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/valid/scenario-descriptor-schema-gate.json",
+      "expected_result": "PASS",
+      "required_evidence_fields": ["valid_count", "invalid_count"]
+    },
+    {
+      "scenario_id": "HERM-203-PUBLICATION-CARDINALITY",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/valid/scenario-descriptor-publication.json",
+      "expected_result": "PASS",
+      "required_evidence_fields": ["disposition", "artifact_id", "artifact_sha256"]
+    },
+    {
+      "scenario_id": "HERM-203-ADAPTER-INVENTORY",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/valid/scenario-descriptor-adapter-inventory.json",
+      "expected_result": "PASS",
+      "required_evidence_fields": ["code", "read_invocations", "sealed_rows_observed", "holdout_access_incidents"]
+    },
+    {
+      "scenario_id": "HERM-203-PHYSICAL-READ-BOUND",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/valid/scenario-descriptor-physical-read.json",
+      "expected_result": "PASS",
+      "required_evidence_fields": ["code", "read_invocations", "sealed_rows_observed", "holdout_access_incidents"]
+    },
+    {
+      "scenario_id": "HERM-203-FIXTURE-COMPLETENESS",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/scenario-manifest.json",
+      "expected_result": "PASS",
+      "required_evidence_fields": ["scenario_count", "known_ids"]
+    },
+    {
+      "scenario_id": "HERM-203-VALID-ARTIFACT-FIXTURE",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/valid/artifact.json",
+      "expected_result": "PASS",
+      "required_evidence_fields": ["artifact_id", "sha256"]
+    },
+    {
+      "scenario_id": "HERM-203-INVALID-HASH-FIXTURE",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/invalid/artifact-uppercase-hash.json",
+      "expected_result": "FAIL",
+      "required_evidence_fields": ["error"]
+    },
+    {
+      "scenario_id": "HERM-203-INVALID-DISPOSITION-FIXTURE",
+      "phase": "task_2_harness",
+      "input_fixture": "fixtures/phase2/invalid/result-envelope-bad-disposition.json",
+      "expected_result": "FAIL",
+      "required_evidence_fields": ["error"]
+    },
+    {
+      "scenario_id": "HERM-203-WAKE-DEDUP-PLATFORM",
+      "phase": "task_3_platform_integration",
+      "input_fixture": "fixtures/phase2/valid/result-ready-event.json",
+      "expected_result": "SKIP",
+      "required_evidence_fields": ["event_id"]
+    },
+    {
+      "scenario_id": "HERM-203-CONVEYOR-RECOVERY-ONLY",
+      "phase": "task_3_platform_integration",
+      "input_fixture": "fixtures/phase2/valid/result-ready-event.json",
+      "expected_result": "SKIP",
+      "required_evidence_fields": ["event_id"]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://btc-strategy/schemas/phase2/v2/workflow-metrics.schema.json",
+  "title": "Phase2 Workflow Metrics",
+  "description": "Machine-readable metrics for the Phase-2 acceptance harness.",
+  "type": "object",
+  "required": [
+    "read_invocations",
+    "sealed_rows_observed",
+    "holdout_access_incidents"
+  ],
+  "properties": {
+    "read_invocations": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of real storage adapter read invocations."
+    },
+    "sealed_rows_observed": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of sealed holdout rows observed by adapters."
+    },
+    "holdout_access_incidents": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of unsafe holdout access incidents."
+    }
+  },
+  "additionalProperties": false
+}

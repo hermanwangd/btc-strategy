@@ -1,0 +1,48 @@
+{
+  "inventory_id": "phase2-adapter-inventory-v1",
+  "cutoff": "2024-01-01T00:00:00Z",
+  "adapters": [
+    {
+      "adapter_id": "btc_ohlc_daily",
+      "description": "BTC daily OHLCV storage adapter",
+      "repo_commit": "bdd649da661a64a5cd5a639e7e0a8bfcb4561dd0",
+      "module": "btc_strategy.data.ohlc",
+      "entrypoint": "load_daily",
+      "physical_predicate": {
+        "field": "load_before",
+        "operator": "<",
+        "cutoff": "2024-01-01T00:00:00Z"
+      },
+      "available": false,
+      "incomplete_reason": "Real adapter implementation unavailable in harness checkout; used only for fail-closed boundary tests."
+    },
+    {
+      "adapter_id": "macro_indicator_daily",
+      "description": "Macro indicator (Gold/DXY/DGS3MO) storage adapter",
+      "repo_commit": "bdd649da661a64a5cd5a639e7e0a8bfcb4561dd0",
+      "module": "btc_strategy.data.macro",
+      "entrypoint": "load_daily",
+      "physical_predicate": {
+        "field": "load_before",
+        "operator": "<",
+        "cutoff": "2024-01-01T00:00:00Z"
+      },
+      "available": false,
+      "incomplete_reason": "Real adapter implementation unavailable in harness checkout; used only for fail-closed boundary tests."
+    },
+    {
+      "adapter_id": "mvrv_indicator_daily",
+      "description": "MVRV on-chain indicator storage adapter",
+      "repo_commit": "bdd649da661a64a5cd5a639e7e0a8bfcb4561dd0",
+      "module": "btc_strategy.data.mvrv",
+      "entrypoint": "load_daily",
+      "physical_predicate": {
+        "field": "load_before",
+        "operator": "<",
+        "cutoff": "2024-01-01T00:00:00Z"
+      },
+      "available": false,
+      "incomplete_reason": "Real adapter implementation unavailable in harness checkout; used only for fail-closed boundary tests."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "transition_key": "HERM-100:result-pass-v1:successor",
+  "parent_issue_id": "HERM-100",
+  "predecessor_child_issue_id": "HERM-101",
+  "result_identity": "result-pass-v1",
+  "result_disposition": "PASS",
+  "artifact_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "successor_action": "create_validation_child"
+}
