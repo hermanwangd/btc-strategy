@@ -1,0 +1,4 @@
+{
+  "check_type": "ADAPTER_INVENTORY",
+  "inventory_path": "fixtures/phase2/adapter-inventory.json"
+}

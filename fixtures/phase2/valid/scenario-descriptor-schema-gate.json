@@ -1,0 +1,5 @@
+{
+  "check_type": "SCHEMA_GATE",
+  "schema_names": ["artifact", "result-envelope", "result-ready", "transition", "workflow-metrics", "scenario-manifest"],
+  "fixture_dirs": ["fixtures/phase2/valid", "fixtures/phase2/invalid"]
+}

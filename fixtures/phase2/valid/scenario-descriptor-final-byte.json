@@ -1,0 +1,5 @@
+{
+  "check_type": "FINAL_BYTE_GATE",
+  "package_root": ".",
+  "checksum_file": "SHA256SUMS.txt"
+}

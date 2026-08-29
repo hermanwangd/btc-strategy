@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://btc-strategy/schemas/phase2/v2/result-ready.schema.json",
+  "title": "Phase2 Result Ready Event",
+  "description": "Notification event posted to a parent issue when a producer terminalizes.",
+  "type": "object",
+  "required": [
+    "event_type",
+    "event_id",
+    "parent_issue_id",
+    "child_issue_id",
+    "producer_result_comment_id",
+    "producer_run_id",
+    "task_id",
+    "state",
+    "result_disposition",
+    "result_identity",
+    "artifact_id",
+    "artifact_sha256",
+    "next_serial_state"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "RESULT_READY_V1"
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable event identity, formatted as RESULT_READY_V1:<RESULT_IDENTITY>."
+    },
+    "parent_issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "child_issue_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer_result_comment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer_run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state": {
+      "type": "string",
+      "enum": ["completed"]
+    },
+    "result_disposition": {
+      "type": "string",
+      "enum": ["PASS", "REJECTED", "BLOCKED", "FAILED"]
+    },
+    "result_identity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "next_serial_state": {
+      "type": "string",
+      "description": "Named next state or NONE."
+    }
+  },
+  "additionalProperties": false
+}

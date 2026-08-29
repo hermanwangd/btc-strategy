@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://btc-strategy/schemas/phase2/v2/result-envelope.schema.json",
+  "title": "Phase2 Result Envelope",
+  "description": "Terminal result envelope produced by a Phase-2 producer.",
+  "type": "object",
+  "required": [
+    "event_type",
+    "result_identity",
+    "state",
+    "result_disposition",
+    "artifact_id",
+    "artifact_sha256",
+    "producer_run_id"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "RESULT_ENVELOPE_V1"
+    },
+    "result_identity": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Exact terminal result identity, used for deduplication."
+    },
+    "state": {
+      "type": "string",
+      "enum": ["completed"],
+      "description": "Completed workflow state."
+    },
+    "result_disposition": {
+      "type": "string",
+      "enum": ["PASS", "REJECTED", "BLOCKED", "FAILED"]
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identity of the terminal artifact this envelope certifies."
+    },
+    "artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "producer_run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,15 @@
+{
+  "event_type": "RESULT_READY_V1",
+  "event_id": "RESULT_READY_V1:result-pass-v1",
+  "parent_issue_id": "HERM-100",
+  "child_issue_id": "HERM-101",
+  "producer_result_comment_id": "comment-1",
+  "producer_run_id": "run-pass-v1",
+  "task_id": "task-pass-v1",
+  "state": "completed",
+  "result_disposition": "PASS",
+  "result_identity": "result-pass-v1",
+  "artifact_id": "producer-artifact-v1",
+  "artifact_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "next_serial_state": "reconcile"
+}

@@ -1,0 +1,10 @@
+{
+  "event_type": "RESULT_ENVELOPE_V1",
+  "result_identity": "result-bad-disp",
+  "state": "completed",
+  "result_disposition": "ACCEPTED",
+  "artifact_id": "producer-artifact-v1",
+  "artifact_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "producer_run_id": "run-bad-disp",
+  "task_id": "task-bad-disp"
+}

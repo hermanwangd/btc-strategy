@@ -1,0 +1,6 @@
+{
+  "check_type": "PUBLICATION_CARDINALITY",
+  "producer_count": 1,
+  "gate_count": 1,
+  "disposition": "PASS"
+}

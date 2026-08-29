@@ -1,1 +1,6 @@
 .worktrees/
+SHA256SUMS.txt
+__pycache__/
+*.pyc
+*.pyo
+

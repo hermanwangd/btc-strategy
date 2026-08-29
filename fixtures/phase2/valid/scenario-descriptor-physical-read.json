@@ -1,0 +1,5 @@
+{
+  "check_type": "PHYSICAL_READ_BOUND",
+  "inventory_path": "fixtures/phase2/adapter-inventory.json",
+  "load_before": "2017-12-31T23:59:59Z"
+}

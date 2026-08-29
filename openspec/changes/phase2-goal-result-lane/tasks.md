@@ -6,9 +6,9 @@
 
 ## 2. Acceptance harness prerequisite
 
-- [ ] 2.1 Implement versioned JSON schemas and a publication wrapper for artifacts, terminal envelopes, events, transitions, and metrics.
-- [ ] 2.2 Implement final-byte checks and adapter inventory; each adapter must prove pre-read predicate enforcement or fail before invocation.
-- [ ] 2.3 Implement all synthetic/schema fixtures and a completeness assertion over the scenario manifest.
+- [x] 2.1 Implement versioned JSON schemas and a publication wrapper for artifacts, terminal envelopes, events, transitions, and metrics.
+- [x] 2.2 Implement final-byte checks and adapter inventory; each adapter must prove pre-read predicate enforcement or fail before invocation.
+- [x] 2.3 Implement all synthetic/schema fixtures and a completeness assertion over the scenario manifest.
 - [ ] 2.4 Obtain independent Gate PASS on harness artifact/hash. Do not change live configuration before PASS.
 
 ## 3. Wake and dedup prerequisite
