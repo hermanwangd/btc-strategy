@@ -24,6 +24,17 @@ def normalize_path(path: Path, root: Path) -> str:
     return path.relative_to(root).as_posix()
 
 
+def is_excluded(rel_path: str, checksum_filename: str = CHECKSUM_FILENAME) -> bool:
+    """Return True for paths that must never appear in a reproducible manifest."""
+    if rel_path == checksum_filename or rel_path.startswith(".git/"):
+        return True
+    if "__pycache__/" in rel_path or rel_path.endswith(".pyc") or rel_path.endswith(".pyo"):
+        return True
+    if rel_path.startswith(".worktrees/"):
+        return True
+    return False
+
+
 def generate_manifest(
     package_root: os.PathLike,
     extra_excludes: Iterable[str] | None = None,
@@ -50,7 +61,7 @@ def generate_manifest(
         for filename in filenames:
             file_path = Path(dirpath) / filename
             rel = normalize_path(file_path, root)
-            if rel in excludes or rel.startswith(".git/"):
+            if rel in excludes or is_excluded(rel, CHECKSUM_FILENAME):
                 continue
             digest = sha256_file(file_path)
             lines.append(f"{digest}  {rel}")

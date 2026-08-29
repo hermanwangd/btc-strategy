@@ -15,7 +15,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Iterable
 
-from phase2_harness.manifest import CHECKSUM_FILENAME, package_hash, sha256_file
+from phase2_harness.manifest import CHECKSUM_FILENAME, is_excluded, package_hash, sha256_file
 
 
 class FinalByteError(Exception):
@@ -81,7 +81,7 @@ def verify_final_bytes(
     for path in root.rglob("*"):
         if path.is_file():
             rel = path.relative_to(root).as_posix()
-            if rel in excluded or rel.startswith(".git/"):
+            if rel in excluded or is_excluded(rel, checksum_filename):
                 continue
             observed_files.add(rel)
 
